@@ -9,7 +9,7 @@ let create () =
   in
   loop 9
 
-let display board =
+let display main =
   let rec lines head =
       let rec loop board y x =
           match board with
@@ -38,13 +38,15 @@ let display board =
                   end
           | _ -> ()
       in
-      loop board 0 0
+      loop head 0 0
   in
-  lines board
+  lines main
 
 let get_grid_id (y, x) = ((y / 3) * 3) + (x / 3)
 
-let check board coord = false
+let resolve board coord = board
+
+let check board coord = true
 (*    let rec loop lst n =
         match lst with
         | [] -> false
@@ -53,11 +55,11 @@ let check board coord = false
     in
     loop board 0
 *)
-let resolve (board: t) player coord : t =
+let place (board: t) player coord : t =
     let rec loop lst n =
         match lst with
         | [] -> []
-        | elem :: tail when n = get_grid_id coord -> (Grid.place elem coord player) :: tail
-        | elem :: tail -> elem :: loop tail (n + 1)
+        | elem :: tail when n = 0 -> (Grid.place elem coord player) :: tail
+        | elem :: tail -> elem :: loop tail (n - 1)
     in
-    loop board 0
+    loop board (get_grid_id coord)

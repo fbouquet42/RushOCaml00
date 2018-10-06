@@ -1,15 +1,16 @@
 let main () =
-    let board = Board.create () in
     let game = Game.create () in
-    let rec loop player =
-        Board.display board;
-        Game.display player;
-        if (Board.resolve board player (Parse.parse board)) then
-            ()
-        else
-            loop (Game.next game player)
+    let rec loop board player =
+        match board with
+        | [] -> ()
+        | _ -> begin
+            Board.display board;
+            Game.display player;
+            let coord = Parse.parse board in
+            loop (Board.resolve (Board.place board player coord) coord) (Game.next game player)
+        end
     in
-    loop (Game.get_player game Game.Player1)
+    loop (Board.create ()) (Game.get_player game Game.Player1)
 
 
 (* Application entry point *)

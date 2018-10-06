@@ -6,8 +6,10 @@ val create : unit -> t
 
 val display : t -> unit
 
-val resolve : t -> string -> (int * int) -> t
+val resolve : t -> coord -> t
+
+val place : t -> string -> coord -> t
 
 val check : t -> coord -> bool
 
-val get_grid_id : (int * int) -> int
+val get_grid_id : coord -> int
