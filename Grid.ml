@@ -47,26 +47,39 @@ let place (grid: t) coord player : t =
     in
     loop grid (get_index coord)
 
-let resolve_y (grid: t) player =
-    let rec loop lst count res =
+let resolve_x (grid: t) =
+    let rec in_check lst =
         match lst with
-        | [] -> false
-        | elem :: tail when elem = Player player && count = 0 ->
-            loop tail (count + 1) (res + 1)
-        | elem :: tail when elem = Player player && res > 0 ->
-            if res = 2 then true
-            else loop tail (count + 1) (res + 1)
-        | elem :: tail ->
-            if count = 2 then loop tail 0 0
-            else loop tail (count + 1) 0
+        | Player a :: Player b :: Player c :: _ when a = b && b = c -> true
+        | _ :: _ :: _ :: next -> in_check next
+        | _ -> false
     in
-    loop grid 0 0
+    in_check grid
 
-let resolve_x (grid: t) = false
-let resolve_z (grid: t) = false
+let resolve_y (grid: t) =
+    let rec in_check = function
+        | Player a :: _ :: _ :: Player b :: _ :: _ :: Player c :: _ when a = b && b = c -> true
+        | _ :: next -> in_check next
+        | _ -> false
+    in
+    in_check grid
+
+let resolve_z (grid: t) =
+    let rec in_left = function
+        | Player a :: _ :: _ :: _ :: Player b :: tail when a = b && in_left (Player b :: tail) -> true
+        | [c] -> true
+        | _ -> false
+    in
+    let in_right lst =
+        let in_check = function
+            | Player a :: _ :: Player b :: _ :: Player c :: _ when a = b && b = c -> true
+            | _ -> false
+        in
+        match lst with
+        | _ :: _ :: xs -> in_check xs
+        | _ -> false
+    in
+    (in_left grid) || (in_right grid)
 
 let resolve (grid: t) player =
-    if resolve_y grid player = true then true
-    else if resolve_x grid = true then true
-    (*else if resolve_z grid = true then true*)
-    else false
+    (resolve_x grid || resolve_y grid || resolve_z grid)

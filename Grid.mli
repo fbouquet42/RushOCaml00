@@ -10,7 +10,7 @@ val check : t -> int * int -> bool
 
 val place : t -> int * int -> string -> t
 
-val resolve_y : t -> string -> bool
+val resolve_y : t -> bool
 
 val resolve_x : t -> bool
 
