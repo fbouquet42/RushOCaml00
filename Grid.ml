@@ -28,15 +28,16 @@ let display grid y =
         | elem :: tail -> loop tail (n + 1)
     in
     loop grid 0
-(*
+
 let check grid coord =
     let rec loop lst n =
+        match lst with
         | [] -> false
-        | elem::tail when n = get_index coord && elem <> Default -> true
-        | elem::tail -> loop tail (n + 1)
+        | elem::tail when n = 0 -> (elem = Default)
+        | elem::tail -> loop tail (n - 1)
     in
-    loop grid 0
-*)
+    loop grid (get_index coord)
+
 let place (grid: t) coord player : t =
     let rec loop lst n =
         match lst with

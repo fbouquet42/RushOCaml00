@@ -46,15 +46,15 @@ let get_grid_id (y, x) = ((y / 3) * 3) + (x / 3)
 
 let resolve board coord = board
 
-let check board coord = true
-(*    let rec loop lst n =
+let check board coord =
+    let rec loop lst n =
         match lst with
         | [] -> false
-        | elem :: tail when n = get_grid_id coord -> Grid.check elem coord
-        | elem :: tail -> loop tail (n + 1)
+        | elem :: tail when n = 0 -> Grid.check elem coord
+        | elem :: tail -> loop tail (n - 1)
     in
-    loop board 0
-*)
+    loop board (get_grid_id coord)
+
 let place (board: t) player coord : t =
     let rec loop lst n =
         match lst with

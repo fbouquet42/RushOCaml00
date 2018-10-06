@@ -6,4 +6,5 @@ val create : unit -> t
 
 val display : t -> int -> unit
 
-val place : t -> (int * int) -> string -> t
+val check : t -> int * int -> bool
+val place : t -> int * int -> string -> t
