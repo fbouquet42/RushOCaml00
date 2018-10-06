@@ -15,24 +15,24 @@ let display board =
           match board with
           | [elem] when y = 2 && x = 2 ->
                   begin
-                      Grid.display elem x;
+                      Grid.display elem y;
                       print_char '\n'
                   end
           | elem :: tail when y = 2 && x = 2 ->
                   begin
-                      Grid.display elem x;
+                      Grid.display elem y;
                       print_endline "\n---------------------";
                       lines tail
                   end
           | elem :: tail when x = 2 ->
                   begin
-                      Grid.display elem x;
+                      Grid.display elem y;
                       print_char '\n';
                       loop head (y + 1) 0
                   end
           | elem :: tail ->
                   begin
-                      Grid.display elem x;
+                      Grid.display elem y;
                       print_string " | ";
                       loop tail y (x + 1)
                   end

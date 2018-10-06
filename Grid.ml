@@ -9,34 +9,29 @@ let get_box box =
     match box with
     | Default -> "-"
     | Player box -> box
-(*
-let display board =
-    let rec loop lst n =
-        match lst with
-        | [] -> ()
-        | x :: xs when n = 0 -> begin
-            print_string (get_box x);
-            print_char '\n';
-            loop xs 2
-        end
-        | x :: xs -> begin
-            print_string (get_box x);
-            print_char ' ';
-            loop xs (n - 1)
-        end
-    in
-    loop board 2
-*)
-let display grid n =
+
+let display grid y =
     let rec loop lst i =
         match lst with
         | [] -> ()
-        | x :: xs when i < 3 ->
+        | x :: xs when y = 0 && i < 3 ->
             begin
                 print_string (get_box x);
                 print_char ' ';
                 loop xs (i + 1)
             end
-        | x :: xs -> ()
+        | x :: xs when y = 1 && (i > 2 && i < 6) ->
+            begin
+                print_string (get_box x);
+                print_char ' ';
+                loop xs (i + 1)
+            end
+        | x :: xs when y = 2 && (i > 5 && i < 9) ->
+            begin
+                print_string (get_box x);
+                print_char ' ';
+                loop xs (i + 1)
+            end
+        | x :: xs -> loop xs (i + 1)
     in
     loop grid 0
