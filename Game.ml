@@ -7,7 +7,6 @@ let get_player game index =
     | Player1 -> game.p1
     | Player2 -> game.p2
 
-
 let create () = {p1 = "O"; p2 = "X"}
 
 let next game player =

@@ -1,4 +1,4 @@
-type t = Grid.t
+type t = Grid.t list
 
 type coord = int * int
 

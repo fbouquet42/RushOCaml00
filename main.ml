@@ -1,8 +1,6 @@
-
 let main () =
     let board = Board.create () in
     let game = Game.create () in
-
     let rec loop player =
         Board.display board;
         Game.display player;
