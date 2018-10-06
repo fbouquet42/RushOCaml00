@@ -1,6 +1,6 @@
-let get_coord s = ((int_of_char s.[0]) - 0x30, (int_of_char s.[2]) - 0x30)
+let get_coord s = ((int_of_char s.[0]) - 0x31, (int_of_char s.[2]) - 0x31)
 
-let is_valid c = (c >= '0' && c <= '8')
+let is_valid c = (c >= '1' && c <= '9')
 
 let valid_length s = (String.length s = 3)
 

@@ -6,7 +6,7 @@ val create : unit -> t
 
 val display : t -> unit
 
-val resolve : t -> coord -> t
+val resolve : t -> coord -> string -> t
 
 val place : t -> string -> coord -> t
 

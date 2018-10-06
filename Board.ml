@@ -44,7 +44,9 @@ let display main =
 
 let get_grid_id (y, x) = ((y / 3) * 3) + (x / 3)
 
-let resolve board coord = board
+let resolve board coord player =
+    print_endline (string_of_bool (Grid.resolve (List.nth board (get_grid_id coord)) player));
+    board
 
 let check board coord =
     let rec loop lst n =

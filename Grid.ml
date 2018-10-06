@@ -46,3 +46,27 @@ let place (grid: t) coord player : t =
         | elem :: tail -> elem :: loop tail (n - 1)
     in
     loop grid (get_index coord)
+
+let resolve_y (grid: t) player =
+    let rec loop lst count res =
+        match lst with
+        | [] -> false
+        | elem :: tail when elem = Player player && count = 0 ->
+            loop tail (count + 1) (res + 1)
+        | elem :: tail when elem = Player player && res > 0 ->
+            if res = 2 then true
+            else loop tail (count + 1) (res + 1)
+        | elem :: tail ->
+            if count = 2 then loop tail 0 0
+            else loop tail (count + 1) 0
+    in
+    loop grid 0 0
+
+let resolve_x (grid: t) = false
+let resolve_z (grid: t) = false
+
+let resolve (grid: t) player =
+    if resolve_y grid player = true then true
+    else if resolve_x grid = true then true
+    (*else if resolve_z grid = true then true*)
+    else false
