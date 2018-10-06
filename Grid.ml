@@ -10,6 +10,8 @@ let get_box box =
     | Default -> "-"
     | Player box -> box
 
+let get_index (y, x) = ((y mod 3) * 3) + (x mod 3)
+
 let display grid y =
     let rec loop lst i =
         match lst with
@@ -33,5 +35,22 @@ let display grid y =
                 loop xs (i + 1)
             end
         | x :: xs -> loop xs (i + 1)
+    in
+    loop grid 0
+(*
+let check grid coord =
+    let rec loop lst n =
+        | [] -> false
+        | elem::tail when n = get_index coord && elem <> Default -> true
+        | elem::tail -> loop tail (n + 1)
+    in
+    loop grid 0
+*)
+let place (grid: t) coord player : t =
+    let rec loop lst n =
+        match lst with
+        | [] -> []
+        | elem :: tail when n = get_index coord -> Player player :: tail
+        | elem :: tail -> elem :: loop lst (n + 1)
     in
     loop grid 0

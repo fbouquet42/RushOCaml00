@@ -42,6 +42,22 @@ let display board =
   in
   lines board
 
-let resolve board player coord = false
+let get_grid_id (y, x) = ((y / 3) * 3) + (x / 3)
 
-let check board coord = true
+let check board coord = false
+(*    let rec loop lst n =
+        match lst with
+        | [] -> false
+        | elem :: tail when n = get_grid_id coord -> Grid.check elem coord
+        | elem :: tail -> loop tail (n + 1)
+    in
+    loop board 0
+*)
+let resolve (board: t) player coord : t =
+    let rec loop lst n =
+        match lst with
+        | [] -> []
+        | elem :: tail when n = get_grid_id coord -> (Grid.place elem coord player) :: tail
+        | elem :: tail -> elem :: loop tail (n + 1)
+    in
+    loop board 0
