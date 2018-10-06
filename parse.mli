@@ -1,4 +1,2 @@
 
-type coord
-
-val parse : Board.t -> coord
+val parse : Board.t -> Board.coord

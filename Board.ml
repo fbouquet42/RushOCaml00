@@ -1,8 +1,12 @@
 
-type t = Grid.t list
+type coord = int * int
 
-let create = Grid.create ()
+type t = Grid.t
 
-let display board = Grid.display ()
+let create () = Grid.create ()
+
+let display board = Grid.display board
 
 let resolve board player coord = false
+
+let check board coord = true

@@ -1,6 +1,6 @@
-type players = Player1 of string | Player2 of string
+type players = Player1 | Player2
 
-type t = {p1 : players; p2 : players }
+type t = {p1 : string; p2 : string }
  
 let get_player game index =
     match index with
@@ -8,12 +8,10 @@ let get_player game index =
     | Player2 -> game.p2
 
 
-let create  = {p1 = Player1 "O", p2 = Player2 "X"}
+let create () = {p1 = "O"; p2 = "X"}
 
 let next game player =
-    match player with
-    | Player1 -> game.p2
-    | Player2 -> game.p1
+    if player = game.p1 then game.p2 else game.p1
 
 let display player =
     print_string player;

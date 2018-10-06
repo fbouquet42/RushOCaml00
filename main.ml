@@ -11,7 +11,7 @@ let main () =
         else
             loop (Game.next game player)
     in
-    loop Game.get_player game Game.Player1
+    loop (Game.get_player game Game.Player1)
 
 
 (* Application entry point *)

@@ -1,5 +1,5 @@
 RESULT = tic-tac-toe
-ML= parse.ml Game.ml Board.ml
+ML= Grid.ml Board.ml parse.ml Game.ml
 MLI= ${ML:.ml=.mli}
 SOURCES = $(MLI) $(ML) main.ml
 OCAMLMAKEFILE = OCamlMakefile
