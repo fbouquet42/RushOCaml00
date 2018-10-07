@@ -13,5 +13,7 @@ let next game player =
     if player = game.p1 then game.p2 else game.p1
 
 let display player =
+    print_string "\x1b[35m";
     print_string player;
+    print_string "\x1b[0m";
     print_endline "'s turn to play."

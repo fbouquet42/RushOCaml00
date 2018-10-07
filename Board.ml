@@ -50,10 +50,11 @@ let resolve_grid board coord player =
         match lst with
         | [] -> []
         | elem :: tail when n = 0 && Grid.resolve elem -> begin
+            print_string "\x1b[33m";
             print_string player;
             print_string " wins grid ";
             print_int ((get_grid_id coord) + 1);
-            print_endline "!";
+            print_endline "!\x1b[0m\n";
             if player = "X" then
                 (Grid.x_wins () :: tail)
             else Grid.o_wins () :: tail
@@ -113,9 +114,12 @@ let board_is_full (board : t) =
 let resolve board player =
     if (board_is_full board || resolve_z board || resolve_x board || resolve_y board) then
         begin
+            print_string "\x1b[36m\n";
             print_string player;
             print_endline " wins the game!";
+            print_string "\x1b[0m\n";
             display board;
+            print_char '\n';
             []
         end
     else
