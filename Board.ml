@@ -54,19 +54,15 @@ let resolve_grids board coord player =
         | elem :: tail -> elem :: loop tail (n - 1)
     in
     loop board (get_grid_id coord)
-(*
-let resolve_x (board: t) = board
-    let rec in_check = function
-        | 
-        | 
-        | _ -> false
 
+(*
+let resolve_x (board: t) =
 let resolve_y (board: t) = false
 let resolve_z (board: t) = false
-
-let resolve board =
-    (resolve_x board || resolve_y board || resolve_z board)
 *)
+let resolve board = board
+(*    (resolve_x board || resolve_y board || resolve_z board) *)
+
 let check board coord =
     let rec loop lst n =
         match lst with

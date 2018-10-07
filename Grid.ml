@@ -84,5 +84,14 @@ let resolve_z (grid: t) =
     in
     (in_left grid) || (in_right grid)
 
+let resolve_draw (grid: t) =
+    let rec loop lst n =
+        match lst with
+        | [] -> if n > 0 then false else true
+        | Player _ :: tail when n > 0 -> loop tail (n - 1)
+        | elem :: tail -> loop tail n
+    in
+    loop grid 9
+
 let resolve (grid: t) =
-    (resolve_x grid || resolve_y grid || resolve_z grid)
+    (resolve_x grid || resolve_y grid || resolve_z grid || resolve_draw grid)

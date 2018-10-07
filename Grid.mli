@@ -18,4 +18,6 @@ val resolve_x : t -> bool
 
 val resolve_z : t -> bool
 
+val resolve_draw : t -> bool
+
 val resolve : t -> bool
