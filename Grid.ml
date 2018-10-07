@@ -99,3 +99,4 @@ let grid_is_full (grid : t) =
 
 let resolve (grid: t) =
     (grid_is_full grid || resolve_x grid || resolve_y grid || resolve_z grid)
+

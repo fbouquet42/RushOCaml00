@@ -121,7 +121,6 @@ let resolve board player =
     else
         board
 
-
 let check board coord =
     let rec loop lst n =
         match lst with
