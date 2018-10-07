@@ -11,12 +11,12 @@ let valid_board board s = (Board.check board (get_coord s))
 let parse board =
     let rec loop () =
         let input = read_line () in
-        if (valid_values input) = false then
+        if (valid_length input && valid_values input) = false then
             begin
                 print_endline ("\x1b[31mIncorrect format.\x1b[0m");
                 loop ()
             end
-        else if ((valid_length input) && (valid_board board input)) then
+        else if (valid_board board input) then
             get_coord input
         else
             begin

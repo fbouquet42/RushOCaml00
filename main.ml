@@ -7,7 +7,7 @@ let start_game () =
         else loop ()
     in
     loop ()
- 
+
 let main () =
     let rec start () =
         if start_game () then
