@@ -6,6 +6,8 @@ val create : unit -> t
 val x_wins : unit -> t
 val o_wins : unit -> t
 
+val get_player : t -> box
+
 val display : t -> int -> unit
 
 val check : t -> int * int -> bool

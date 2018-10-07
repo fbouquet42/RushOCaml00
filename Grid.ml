@@ -16,6 +16,11 @@ let get_box box =
 
 let get_index (y, x) = ((y mod 3) * 3) + (x mod 3)
 
+let get_player (grid : t) =
+    match (List.nth grid 4) with
+    | Resolved player -> Resolved player
+    | _ -> Default
+
 let display grid y =
     let index = y * 3 in
     let rec loop lst n =
@@ -84,5 +89,13 @@ let resolve_z (grid: t) =
     in
     (in_left grid) || (in_right grid)
 
+let grid_is_full (grid : t) =
+    let rec loop = function
+        | [] -> true
+        | Player _ :: xs -> loop xs
+        | _ -> false
+    in
+    loop grid
+
 let resolve (grid: t) =
-    (resolve_x grid || resolve_y grid || resolve_z grid)
+    (grid_is_full grid || resolve_x grid || resolve_y grid || resolve_z grid)

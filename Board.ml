@@ -44,29 +44,84 @@ let display main =
 
 let get_grid_id (y, x) = ((y / 3) * 3) + (x / 3)
 
-let resolve_grids board coord player =
+
+let resolve_grid board coord player =
     let rec loop lst n =
         match lst with
         | [] -> []
-        | elem :: tail when n = 0 && Grid.resolve elem = true ->
-            if player = "X" then Grid.x_wins () :: tail
+        | elem :: tail when n = 0 && Grid.resolve elem -> begin
+            print_string player;
+            print_string " wins grid ";
+            print_int ((get_grid_id coord) + 1);
+            print_endline "!";
+            if player = "X" then
+                (Grid.x_wins () :: tail)
             else Grid.o_wins () :: tail
+        end
         | elem :: tail -> elem :: loop tail (n - 1)
     in
     loop board (get_grid_id coord)
-(*
-let resolve_x (board: t) = board
-    let rec in_check = function
-        | 
-        | 
+
+let rec _compare (somes : Grid.box list) =
+    match somes with
+    | Resolved a :: Resolved b :: xs when a = b -> _compare (Resolved b :: xs)
+    | Resolved x :: [] -> true
+    | _ -> false
+
+let resolve_x (grid: t) =
+    let rec in_check lst =
+        match lst with
+        | a :: b :: c :: _ when _compare [Grid.get_player a; Grid.get_player b; Grid.get_player c] -> true
+        | _ :: _ :: _ :: next -> in_check next
         | _ -> false
+    in
+    in_check grid
 
-let resolve_y (board: t) = false
-let resolve_z (board: t) = false
+let resolve_y (board: t) =
+    let rec in_check = function
+        | a :: _ :: _ :: b :: _ :: _ :: c :: _ when _compare [Grid.get_player a; Grid.get_player b; Grid.get_player c] -> true
+        | _ :: next -> in_check next
+        | _ -> false
+    in
+    in_check board
 
-let resolve board =
-    (resolve_x board || resolve_y board || resolve_z board)
-*)
+let resolve_z (board: t) =
+    let rec in_left = function
+        |  a :: _ :: _ :: _ :: b :: tail when _compare [Grid.get_player a; Grid.get_player b] -> in_left (b :: tail)
+        | [c] -> true
+        | _ -> false
+    in
+    let in_right lst =
+        let in_check = function
+            | a :: _ :: b :: _ :: c :: _ when _compare [Grid.get_player a; Grid.get_player b; Grid.get_player c] -> true
+            | _ -> false
+        in
+        match lst with
+        | _ :: _ :: xs -> in_check xs
+        | _ -> false
+    in
+    (in_left board) || (in_right board)
+
+let board_is_full (board : t) =
+    let rec loop = function
+        | [] -> true
+        | x :: xs when _compare [Grid.get_player x] -> loop xs
+        | _ -> false
+    in
+    loop board
+
+let resolve board player =
+    if (board_is_full board || resolve_z board || resolve_x board || resolve_y board) then
+        begin
+            print_string player;
+            print_endline " wins the game!";
+            display board;
+            []
+        end
+    else
+        board
+
+
 let check board coord =
     let rec loop lst n =
         match lst with

@@ -6,9 +6,9 @@ val create : unit -> t
 
 val display : t -> unit
 
-val resolve_grids : t -> coord -> string -> t
+val resolve_grid : t -> coord -> string -> t
 
-(*val resolve : t -> t*)
+val resolve : t -> string -> t
 
 val place : t -> string -> coord -> t
 
