@@ -1,15 +1,18 @@
 
-type box = Default | Player of string
+type box = Default | Player of string | Resolved of string
 
 type t = box list
 
 let create () = [ Default; Default; Default; Default; Default; Default; Default; Default; Default]
 (*let create () = [Player "00"; Player "01"; Player "02"; Player "10"; Player "11"; Player "12"; Player "20"; Player "21"; Player "22"]*)
+let x_wins () = [ Resolved "\\"; Resolved " "; Resolved "/"; Resolved " "; Resolved "X"; Resolved " "; Resolved "/"; Resolved " "; Resolved "\\"]
+let o_wins () = [ Resolved "/"; Resolved "-"; Resolved "\\"; Resolved "|"; Resolved "O"; Resolved "|"; Resolved "\\"; Resolved "-"; Resolved "/"]
 
 let get_box box =
     match box with
     | Default -> "-"
     | Player box -> box
+    | Resolved box -> box
 
 let get_index (y, x) = ((y mod 3) * 3) + (x mod 3)
 
@@ -81,5 +84,5 @@ let resolve_z (grid: t) =
     in
     (in_left grid) || (in_right grid)
 
-let resolve (grid: t) player =
+let resolve (grid: t) =
     (resolve_x grid || resolve_y grid || resolve_z grid)

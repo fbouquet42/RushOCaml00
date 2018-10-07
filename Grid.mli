@@ -1,8 +1,10 @@
-type box = Default | Player of string
+type box = Default | Player of string | Resolved of string
 
 type t = box list
 
 val create : unit -> t
+val x_wins : unit -> t
+val o_wins : unit -> t
 
 val display : t -> int -> unit
 
@@ -16,4 +18,4 @@ val resolve_x : t -> bool
 
 val resolve_z : t -> bool
 
-val resolve : t -> string -> bool
+val resolve : t -> bool
